@@ -1,8 +1,9 @@
 import React from 'react'
-import { Container, Divider, Form } from 'semantic-ui-react'
+import { Container, Divider, Form, Message } from 'semantic-ui-react'
 import axios from 'axios'
 
-import Message from '../components/Message'
+import EachMessage from '../components/EachMessage'
+import validateInput from '../validation/newMessage'
 
 class App extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class App extends React.Component {
         this.state = {
             username: '',
             message: '',
-            messages: []
+            messages: [],
+            errors: {}
         }
 
         this.handleOnChange = this.handleOnChange.bind(this)
@@ -24,22 +26,34 @@ class App extends React.Component {
             })
     }
 
+    isValid() {
+        const { errors, isValid } = validateInput(this.state)
+        if (!isValid) {
+            this.setState({ errors })
+        }
+
+        return isValid
+    }
+
     handleOnChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     handleOnSubmit(e) {
         e.preventDefault()
-        axios.post('http://localhost:5000/addMessage', {username: this.state.username, message: this.state.message})
-            .then((res) => {
-                this.setState({ username: '', message: '', messages: res.data })
-            })
+
+        if (this.isValid()) {
+            axios.post('http://localhost:5000/addMessage', {username: this.state.username, message: this.state.message})
+                .then((res) => {
+                    this.setState({ username: '', message: '', messages: res.data, errors: {} })
+                })
+        }
     }
 
     render() {
         return (
             <Container>
-                <Message messages={this.state.messages} />
+                <EachMessage messages={this.state.messages} />
 
                 <Divider />
 
@@ -49,6 +63,14 @@ class App extends React.Component {
                         label='Username'
                         value={this.state.username}
                         onChange={this.handleOnChange}
+                        error={this.state.errors.username ? true : false}
+                    />
+
+                    <Message
+                        color='red'
+                        header='Action Forbidden'
+                        content={this.state.errors.username}
+                        hidden={this.state.errors.username ? false : true}
                     />
 
                     <Form.TextArea
@@ -57,6 +79,14 @@ class App extends React.Component {
                         placeholder='Leave some messages'
                         value={this.state.message}
                         onChange={this.handleOnChange}
+                        error={this.state.errors.message ? true: false}
+                    />
+
+                    <Message
+                        color='red'
+                        header='Action Forbidden'
+                        content={this.state.errors.message}
+                        hidden={this.state.errors.message ? false : true}
                     />
 
                     <Form.Button content='Submit' />
