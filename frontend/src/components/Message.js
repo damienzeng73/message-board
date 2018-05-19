@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { List } from 'semantic-ui-react'
 import _ from 'lodash'
 
-import './EachMessage.css'
+import './Message.css'
 
-const EachMessage = (props) => {
+const Message = (props) => {
     let messageCollection = _.map(props.messages, (element, index) => {
         return (
             <List.Item key={index}>
@@ -27,9 +27,9 @@ const EachMessage = (props) => {
     )
 }
 
-EachMessage.propTypes = {
+Message.propTypes = {
     messages: PropTypes.array.isRequired
 }
 
 
-export default EachMessage
+export default Message
