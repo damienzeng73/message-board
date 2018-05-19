@@ -1,7 +1,7 @@
 import Validator from 'validator'
 import _ from 'lodash'
 
-const validateInput = (data) => {
+const validateMessage = (data) => {
     let errors = {}
     if (Validator.isEmpty(data.username)) {
         errors.username = 'This field is required!'
@@ -26,4 +26,4 @@ const validateInput = (data) => {
 }
 
 
-export default validateInput
+export default validateMessage

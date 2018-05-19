@@ -5,7 +5,7 @@ import axios from 'axios'
 import Header from '../components/Header'
 import Message from '../components/Message'
 import MessageForm from '../components/MessageForm'
-import validateInput from '../validation/newMessage'
+import validateMessage from '../utils/validateMessage'
 
 class App extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class App extends React.Component {
     }
 
     isValid() {
-        const { errors, isValid } = validateInput(this.state)
+        const { errors, isValid } = validateMessage(this.state)
         if (!isValid) {
             this.setState({ errors })
         }
