@@ -11,11 +11,11 @@ const validateInput = (data) => {
         errors.message = 'This field is required!'
     }
 
-    if (Validator.isLength(data.username, {min: 20, max: undefined})) {
+    if (Validator.isLength(data.username, {min: 21, max: undefined})) {
         errors.username = 'Username must be within 20 charactor!'
     }
 
-    if (Validator.isLength(data.message, {min: 1, max: 20})) {
+    if (Validator.isLength(data.message, {min: 1, max: 19})) {
         errors.message = 'Message must at least 20 charactor!'
     }
 
