@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Divider, Form } from 'semantic-ui-react'
+import axios from 'axios'
 
 import Message from '../components/Message'
 
@@ -11,6 +12,13 @@ class App extends React.Component {
             message: '',
             messages: []
         }
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:5000/getMessages')
+            .then((res) => {
+                this.setState({ messages: res.data })
+            })
     }
 
     render() {
