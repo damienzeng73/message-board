@@ -21,7 +21,7 @@ def get_messages():
 
         messages.append(dic)
 
-    return jsonify(messages[::-1])
+    return jsonify(messages)
 
 
 @app.route('/addMessage', methods=['POST'])
@@ -45,4 +45,4 @@ def add_message():
 
         messages.append(dic)
 
-    return jsonify(messages[::-1])
+    return jsonify(messages)
