@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Divider, Form, Message } from 'semantic-ui-react'
+import { Container, Header, Divider, Form, Message } from 'semantic-ui-react'
 import axios from 'axios'
 
 import EachMessage from '../components/EachMessage'
@@ -53,6 +53,8 @@ class App extends React.Component {
     render() {
         return (
             <Container>
+                <Header as='h1'>MESSAGE BOARD</Header>
+
                 <EachMessage messages={this.state.messages} />
 
                 <Divider />
